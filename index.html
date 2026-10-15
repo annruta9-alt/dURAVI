@@ -134,10 +134,11 @@ footer{padding:0 clamp(20px,5vw,40px) 120px;text-align:center;color:var(--mu);fo
 
 <dialog id="dlg"><div class="sheet">
   <h3>Запрос по комплекту</h3>
-  <p class="sub" style="margin-bottom:14px">Текст можно поправить. Скопируйте его и отправьте менеджеру в любом мессенджере.</p>
+  <p class="sub" style="margin-bottom:14px">Текст можно поправить. Нажмите «Отправить в Telegram» или скопируйте его и отправьте менеджеру любым удобным способом.</p>
   <textarea id="txt" aria-label="Текст запроса"></textarea>
   <div class="row">
-    <button class="btn" id="copy">Скопировать текст</button>
+    <a class="btn" id="tg" href="https://t.me/Art10Artten" target="_blank" rel="noopener">Отправить в Telegram</a>
+    <button class="btn ghost" id="copy">Скопировать текст</button>
     <button class="btn ghost" id="close">Закрыть</button>
   </div>
   <p class="ok" id="ok" role="status"></p>
@@ -190,8 +191,11 @@ function msg(){
 }
 $("#open").onclick=()=>{
   const t=msg();$("#txt").value=t;$("#ok").textContent="";
+  setTg();
   $("#dlg").showModal();
 };
+const setTg=()=>{$("#tg").href="https://t.me/Art10Artten?text="+encodeURIComponent($("#txt").value)};
+$("#txt").addEventListener("input",setTg);
 $("#close").onclick=()=>$("#dlg").close();
 $("#copy").onclick=async()=>{
   const t=$("#txt");
